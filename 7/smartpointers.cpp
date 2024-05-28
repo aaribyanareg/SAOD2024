@@ -1,12 +1,21 @@
 #include <iostream>
 #include <memory>
-#include "Test.h"
+
+class Test {
+public:
+    Test() {
+        std::cout << "Test constructed\n";
+    }
+    ~Test() {
+        std::cout << "Test destructed\n";
+    }
+};
 
 std::weak_ptr<Test> wp;
 
 int main() {
     {
-        std::shared_ptr<Test> sp = std::make_shared<Test>();
+        auto sp = std::make_shared<Test>();
         std::cout << "use_count: " << sp.use_count() << std::endl;
 
         wp = sp;
@@ -17,7 +26,7 @@ int main() {
             std::cout << "object is alive, use_count: " << p.use_count() << std::endl;
         }
         else {
-            std::cout << "no owning object" << std::endl;
+            std::cout << "no owning object\n";
         }
     }
 
@@ -26,7 +35,7 @@ int main() {
         std::cout << "object is alive, use_count: " << p.use_count() << std::endl;
     }
     else {
-        std::cout << "no owning object" << std::endl;
+        std::cout << "no owning object\n";
     }
 
     return 0;
